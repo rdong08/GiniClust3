@@ -1,0 +1,11 @@
+setup.py
+giniclust3/__init__.py
+giniclust3/consensus.py
+giniclust3/fano.py
+giniclust3/gini.py
+giniclust3/plot.py
+giniclust3.egg-info/PKG-INFO
+giniclust3.egg-info/SOURCES.txt
+giniclust3.egg-info/dependency_links.txt
+giniclust3.egg-info/requires.txt
+giniclust3.egg-info/top_level.txt

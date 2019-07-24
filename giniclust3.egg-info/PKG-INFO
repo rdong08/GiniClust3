@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: giniclust3
+Version: 1.0.0.dev1
+Summary: Rare cluster identification in single cells
+Home-page: https://github.com/rdong08/GiniClust3
+Author: Rui Dong
+Author-email: rdong1989@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: GiniClust3 python
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: MIT License
+Classifier: Programming Language :: Python :: 3.6
