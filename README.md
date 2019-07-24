@@ -29,8 +29,8 @@ adataRaw=sc.read_csv("./data/GSM1599495_ES_d0_biorep_techrep1.csv",first_column_
 ```
 Filter and normalization
 ```bash
-sc.pp.filter_cells(adataRaw,min_genes=3)#####remover gene expressed less than N cell
-sc.pp.filter_genes(adataRaw,min_cells=200)#####remove cell express less than M gene
+sc.pp.filter_cells(adataRaw,min_genes=3)
+sc.pp.filter_genes(adataRaw,min_cells=200)
 adataSC=anndata.AnnData(X=adataRaw.X.T,obs=adataRaw.var,var=adataRaw.obs)
 sc.pp.normalize_per_cell(adataSC, counts_per_cell_after=1e4)
 ```
