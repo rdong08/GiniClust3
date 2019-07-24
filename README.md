@@ -16,6 +16,7 @@ A schematic flow shows the pipeline
 ## Installation
 ```bash
 python setup.py install
+```
 
 ## Usage and example:
 -----
