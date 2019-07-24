@@ -13,6 +13,9 @@ A schematic flow shows the pipeline
 * anndata (https://anndata.readthedocs.io/en/stable/)
 * scanpy (https://scanpy.readthedocs.io/en/stable/)
 
+## Installation
+```bash
+python setup.py install
 
 ## Usage and example:
 -----
