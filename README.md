@@ -14,8 +14,13 @@ A schematic flow shows the pipeline
 * scanpy (https://scanpy.readthedocs.io/en/stable/)
 
 ## Installation
+Download from Github and install
 ```bash
 python setup.py install
+```
+Install by using pip
+```bash
+pip install giniclust3
 ```
 
 ## Usage and example:
