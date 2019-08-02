@@ -41,9 +41,13 @@ Filter expression matrix
 sc.pp.filter_cells(adataRaw,min_genes=3)
 sc.pp.filter_genes(adataRaw,min_cells=200)
 ```
-Format and normalize matrix
+Format expression matrix
 ```bash
-adataSC=anndata.AnnData(X=adataRaw.X.T,obs=adataRaw.var,var=adataRaw.obs) ###example csv file is col:cells X row:genes. Skip this step if the format of input expression matrix is col:genes X row:cells
+###example csv file is col:cells X row:genes. Skip this step if the input matrix is col:genes X row:cells
+adataSC=anndata.AnnData(X=adataRaw.X.T,obs=adataRaw.var,var=adataRaw.obs)
+```
+Normalization
+```bash
 sc.pp.normalize_per_cell(adataSC, counts_per_cell_after=1e4)
 ```
 
