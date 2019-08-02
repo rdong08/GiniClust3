@@ -1,5 +1,5 @@
 # GiniClust3
-GiniClust3 is a a fast and memory-saving rare cell cluster identification method for large scale single-cell gene expression data.
+GiniClust3: a fast and memory-efficient tool for rare cell type identification
 
 A schematic flow shows the pipeline
 -----------------------------------
@@ -43,7 +43,7 @@ sc.pp.filter_genes(adataRaw,min_cells=200)
 ```
 Format and normalize matrix
 ```bash
-adataSC=anndata.AnnData(X=adataRaw.X.T,obs=adataRaw.var,var=adataRaw.obs) ###example csv file is col:cells X row:genes. Skip this step is imput is col:genes X row:cells
+adataSC=anndata.AnnData(X=adataRaw.X.T,obs=adataRaw.var,var=adataRaw.obs) ###example csv file is col:cells X row:genes. Skip this step if the format of input expression matrix is col:genes X row:cells
 sc.pp.normalize_per_cell(adataSC, counts_per_cell_after=1e4)
 ```
 
