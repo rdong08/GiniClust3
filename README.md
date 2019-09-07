@@ -14,6 +14,11 @@ A schematic flow shows the pipeline
 * scanpy (https://scanpy.readthedocs.io/en/stable/)
 
 ## Installation
+
+Install by using anaconda (recommend)
+```bash
+conda install -c rdong giniclust3
+```
 Download from Github and install
 ```bash
 python setup.py install
