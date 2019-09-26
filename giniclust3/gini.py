@@ -15,6 +15,8 @@ from sklearn import preprocessing
 from scipy.interpolate import interp1d
 import statsmodels.api as sm
 from scipy import stats
+import warnings
+warnings.filterwarnings('ignore')
 
 def giniIndexCalculation(array):
     plusArray=array+0.0000001

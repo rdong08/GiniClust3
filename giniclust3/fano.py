@@ -9,6 +9,8 @@
 import numpy as np
 import scanpy as sc
 import anndata
+import warnings
+warnings.filterwarnings('ignore')
 
 def calFanoFactor(expArray,geneName):
     fanoDict={}
