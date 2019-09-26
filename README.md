@@ -3,7 +3,7 @@ GiniClust3: a fast and memory-efficient tool for rare cell type identification
 
 A schematic flow shows the pipeline
 -----------------------------------
-![pipeline](https://github.com/rdong08/GiniClust3/blob/master/pipeline.png)
+<img src="https://github.com/rdong08/GiniClust3/blob/master/pipeline.png" width="500">
 
 ## Prerequisites
 * numpy (https://numpy.org/)

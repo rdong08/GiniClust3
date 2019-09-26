@@ -10,4 +10,6 @@ GiniClust3 is a a fast and memory-saving rare cell cluster identification method
 * scanpy (https://scanpy.readthedocs.io/en/stable/)
 
 ## Installation
+conda install -c rdong giniclust3
+or
 pip install giniclust3
