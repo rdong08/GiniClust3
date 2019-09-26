@@ -1,4 +1,4 @@
-README.rst
+README.md
 setup.py
 giniclust3/__init__.py
 giniclust3/consensus.py
