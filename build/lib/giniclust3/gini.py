@@ -45,7 +45,7 @@ def arctanTransform(matrix):
         expSort=np.sort(transMatrix[i])[::-1]
         expSum=np.sum(expSort)
         expM=[]
-        if (binCellNum<=2):
+        if (binCellNum<=9):
             for j in range(0,len(expSort)):
                 binSum=np.sum(expSort[0:j])
                 div=binSum/expSum
@@ -211,7 +211,5 @@ def clusterGini(adataSC,**kwargs):
     else:
         sc.tl.leiden(adataScaleGini,resolution=cluster_resolution)
         giniClust=adataScaleGini.obs['leiden'].values.tolist()
-    sc.tl.rank_genes_groups(adataScaleGini,groupby='leiden')
-    rareCluster,rareGene=rareClusterId(giniClust,adataScaleGini.uns['rank_genes_groups'])
-    adataSC.obs['rare']=rareCluster
+    adataSC.obs['rare']=giniClust
     return(adataScaleGini)

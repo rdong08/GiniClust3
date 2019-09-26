@@ -45,17 +45,22 @@ def calMtilde(funcNormGiniClust,funcGiniClust,funcFanoClust,simMtilde):
                 simMtilde[i][j]=1
 
 def determinK(gini,fano):
-    count=0
+    cellNum=0
     for g in gini.keys():
-        if (g=="0"):
+        cellNum=cellNum+len(gini[g])
+    count=0
+    rare=0
+    for g in gini.keys():
+        if (len(gini[g])/cellNum>0.01):
             continue
+        rare=rare+1
         for f in fano.keys():
             overlap=len(np.intersect1d(gini[g],fano[f]))
             overlapG=overlap/len(gini[g])
             overlapF=overlap/len(fano[f])
             if (overlapG>=0.8 and overlapF>=0.8):
                 count+=1
-    k=len(gini)+len(fano)-count-1
+    k=rare+len(fano)-count
     return(k)
 
 def overlapGF(gini,fano,giniList):

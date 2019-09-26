@@ -31,14 +31,11 @@ def calFanoFactor(expArray,geneName):
 
 def calFano(adataSC,**kwargs):
     cluster_method=kwargs.get('method', "scanpy")
-    #####louvin cluster by using high Fano genes######
-    cellLabel=adataSC.obs.index.tolist()
-    geneLabel=adataSC.var.index.tolist()
+    #####cluster by using high Fano genes######
     sc.pp.log1p(adataSC)
     if (cluster_method=="scanpy"):
        sc.pp.highly_variable_genes(adataSC)
     else:
-    #####louvin cluster by using high Fano genes######
         sigFanoGene=calFanoFactor(adataSC.X,geneLabel)
         geneFanoBool=[]
         for i in range(len(geneLabel)):

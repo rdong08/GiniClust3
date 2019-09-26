@@ -15,7 +15,7 @@ import datetime
 
 adataSC=sc.read_h5ad("adata_rmDoublet.h5ad")
 starttime=datetime.datetime.now()
-gc.gini.calGini(adataSC)
+gc.gini.calGini(adataSC,neighbors=15)
 adataGini=gc.gini.clusterGini(adataSC)
 gc.fano.calFano(adataSC)
 adataFano=gc.fano.clusterFano(adataSC)

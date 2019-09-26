@@ -1,0 +1,35 @@
+package:
+  name: giniclust3
+  version: 1.0.0
+
+build:
+  number: 1
+
+source:
+    fn: giniclust3_1.0.0.tar.gz
+    url: https://github.com/rdong08/GiniClust3.git
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - scipy
+    - statsmodels 
+    - numpy
+    - scikit-learn 
+  run:
+    - python >=3.6
+    - numpy
+    - six >=1.8.0
+    - scikit-learn >=0.20.2
+    - scipy >=1.2.0
+    - statsmodels >=0.9.0
+
+test:
+  imports:
+    - giniclust3.gini
+    - giniclust3.fano
+    - giniclust3.consensus
+
+about:
+  summary: Rare cell identification in Single-Cell Analysis in Python. Scale to >1M cells.
