@@ -18,7 +18,7 @@ starttime=datetime.datetime.now()
 gc.gini.calGini(adataSC,neighbors=15)
 adataGini=gc.gini.clusterGini(adataSC)
 gc.fano.calFano(adataSC)
-adataFano=gc.fano.clusterFano(adataSC)
+adataFano=gc.fano.clusterFano(adataSC,resolution=0.5)
 consensusCluster={}
 consensusCluster['giniCluster']=np.array(adataSC.obs['rare'].values.tolist())
 consensusCluster['fanoCluster']=np.array(adataSC.obs['fano'].values.tolist())
