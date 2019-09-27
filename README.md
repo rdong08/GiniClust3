@@ -11,14 +11,11 @@ A schematic flow shows the pipeline
 * scikit-learn (https://scikit-learn.org/stable/)
 * scipy (https://www.scipy.org/)
 * statsmodels (https://www.statsmodels.org/stable/index.html)
-* anndata (https://anndata.readthedocs.io/en/stable/)
 * scanpy (https://scanpy.readthedocs.io/en/stable/)
 
 ## Installation
-Install Scanpy
-```bash
-conda install -c bioconda scanpy
-```
+Scanpy is needed to be installed first from "https://scanpy.readthedocs.io/en/stable/installation.html".
+
 ### Install by using anaconda (recommend)
 ```bash
 conda install -c rdong giniclust3
