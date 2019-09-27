@@ -1,5 +1,6 @@
 # GiniClust3
-GiniClust3: a fast and memory-efficient tool for rare cell type identification
+## GiniClust3: a fast and memory-efficient tool for rare cell type identification
+GiniClust is a clustering method specifically designed for rare cell type detection. It uses the Gini index to identify genes that are associated with rare cell types without prior knowledge. This differs from traditional clustering methods using highly variable genes. Using a cluster-aware, weighted consensus clustering approach, we can combine the outcomes from Gini index and Fano factor-based clustering and identify both common and rare cell types. In this new version (GiniClust3), we have substantially increased the speed and reduced memory usage in order to meet the need for large data size. It can now be used to identify rare cell types from over a million cells. Previous versions of GiniClust can be found below: GiniClust (https://github.com/lanjiangboston/GiniClust). GiniClust2 (https://github.com/dtsoucas/GiniClust2).
 
 A schematic flow shows the pipeline
 -----------------------------------
@@ -14,21 +15,24 @@ A schematic flow shows the pipeline
 * scanpy (https://scanpy.readthedocs.io/en/stable/)
 
 ## Installation
-
-Install by using anaconda (recommend)
+Install Scanpy
+```bash
+conda install -c bioconda scanpy
+```
+### Install by using anaconda (recommend)
 ```bash
 conda install -c rdong giniclust3
 ```
-Download from Github and install
+### Download from Github and install
 ```bash
 python setup.py install
 ```
-Install by using pip
+### Install by using pip
 ```bash
 pip install giniclust3
 ```
 
-## Usage and example:
+ Usage and example:
 -----
 Import associated packages
 ```bash
