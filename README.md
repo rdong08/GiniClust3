@@ -20,11 +20,11 @@ Scanpy is needed to be installed first from "https://scanpy.readthedocs.io/en/st
 ```bash
 conda install -c rdong giniclust3
 ```
-### Download from Github and install
+### OR download from Github and install
 ```bash
 python setup.py install
 ```
-### Install by using pip
+### OR install by using pip
 ```bash
 pip install giniclust3
 ```
