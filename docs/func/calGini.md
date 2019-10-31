@@ -1,13 +1,13 @@
-gc.gini.calGini
+gc.gini.calGini：
 ===============
+Calculate Gini Index value for each gene and then select highly variable genes.
 
 ```
 gc.gini.calGini(adata,selection='p_value',p_value='0.0001',min_gini_value='0.6')
 ```
 
-    Calculate Gini Index value for each gene.
-    Params
-    ------
+**Parameters**
+
     adata: Anndata
         The annotated data matrix of shape `n_obs` × `n_vars`.
         Rows correspond to cells and columns to genes.
@@ -25,10 +25,13 @@ gc.gini.calGini(adata,selection='p_value',p_value='0.0001',min_gini_value='0.6')
         in select Gini genes, smaller values indicates more Gini genes are
         selected
 
-    A. Gini gene selection in 'p_value' mode: 1. p value < p_value 2. Gini Index
-    value >= min_gini_value. (Recommended)
-    B. In 'gini_value' mode: Gini Index value > min_gini_value.
 
-    Returns
-    -------
-    Returns dictionary with Gini genes. adata.var['gini']
+**Returns**
+
+Dictionary with Gini genes. Store in adata.var['gini'].
+
+**Example**
+
+```
+gc.gini.calGini(adataSC,selection='p_value',p_value='0.0001',min_gini_value='0.6')
+```
