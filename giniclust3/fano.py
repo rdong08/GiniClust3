@@ -32,11 +32,28 @@ def calFanoFactor(expArray,geneName):
     return(highFano)
 
 def calFano(adataSC,**kwargs):
+    """
+    Calculate Fano factor value for each gene.
+    Params
+    ------
+    adata: Anndata
+        The annotated data matrix of shape `n_obs` × `n_vars`.
+        Rows correspond to cells and columns to genes.
+    method: string, optional (Default: 'scanpy')
+        method='gini2' or method='scanpy'. 'gini2' mode indicates
+        Fano factor is calculated based on var/mean as indicated in GiniClust2.
+        'scanpy' mode is hvg selection by using scanpy implemented function. 
+        Recommend: 'scanpy' mode.
+
+    Returns
+    -------
+    Returns dictionary with Gini genes. adata.var['highly_variable']
+    """
     cluster_method=kwargs.get('method', "scanpy")
     #####cluster by using high Fano genes######
     sc.pp.log1p(adataSC)
     if (cluster_method=="scanpy"):
-       sc.pp.highly_variable_genes(adataSC)
+        sc.pp.highly_variable_genes(adataSC)
     else:
         sigFanoGene=calFanoFactor(adataSC.X,geneLabel)
         geneFanoBool=[]
@@ -48,9 +65,33 @@ def calFano(adataSC,**kwargs):
         adataSC.var['highly_variable']=np.array(geneFanoBool,dtype=bool)
 
 def clusterFano(adataSC,**kwargs):
+    """
+    Cluster cells based on Fano factor.
+    Params
+    ------
+    adata: Anndata
+        The annotated data matrix of shape `n_obs` × `n_vars`.
+        Rows correspond to cells and columns to genes.
+    neighbors: int, optional (Default=15)
+        The size of local neighborhood used for manifold approximation. Larger
+        values result in more global views of the manifold, while smaller values
+        result in more local data being preserved. This values should be in the 
+        range 2 to 100. Recommended neighbors = 15.
+    resolution: float, optional (Default=0.1)
+        A parameter value controlling the coarseness of the clustering. Higher
+        values lead to more clusters. 
+    method: string, optional (Default: 'leiden')
+        method='louvain' or method='leiden'.
+
+    Returns
+    -------
+    Returns dictionary with highly variable genes. adata.var['highly_variable']
+    """
     cluster_neighbors=kwargs.get('neighbors', 15)
     cluster_resolution=kwargs.get('resolution', 0.1)
     cluster_method=kwargs.get('method', "leiden")
+    if (cluster_method!="louvain" and cluster_method!="leiden"):
+        raise SystemExit("Only leiden or louvain cluster method is allowed in this step.")
     adataFano = adataSC[:,adataSC.var['highly_variable']]
     sc.pp.scale(adataFano)
     sc.pp.pca(adataFano)

@@ -11,7 +11,7 @@ from setuptools import setup
 
 setup(
     name='giniclust3',
-    version='1.0.1',
+    version='1.1.0',
     description='Rare cluster identification in single cells',
     url='https://github.com/rdong08/GiniClust3',
     author='Rui Dong',

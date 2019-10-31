@@ -26,7 +26,6 @@ def giniIndexCalculation(array):
     indexValue=(np.sum((2*index-n-1)*plusArray))/(n*np.sum(plusArray))
     return (indexValue)
 
-
 def giniIndex(filteredArray):
     funcGeneGini=[]
     funcGeneMax=[]
@@ -68,40 +67,7 @@ def arctanTransform(matrix):
     arctanExp=np.array(arctanExp)
     return(arctanExp.T)
 
-def rareClusterId(funcClust,markGene):
-    hashCluster={}
-    for element in funcClust:
-        hashCluster[element]=hashCluster.get(element,0)+1
-    clusterID=hashCluster.keys()
-    clusterID=sorted(map(int,clusterID))
-    CandidateGene=[]
-    CandidateClust=[]
-    newClustID=0
-    hashProjectID={}
-    for i in range(len(clusterID)):
-        countCandidateGene=0
-        subCandidateGene=[]
-        #####remove large clusters with component >= 5%
-        if (hashCluster[str(clusterID[i])]/len(funcClust)>=0.01):
-            continue
-        for j in range(len(markGene['names'])):
-            #####count marker genes with more than 5 fold enriched in select cluster####
-            if (markGene['logfoldchanges'][j][i]>=np.log2(5) and markGene['pvals_adj'][j][i]<0.01):
-                countCandidateGene+=1
-                subCandidateGene.append(markGene['names'][j][i])
-        if (countCandidateGene>=3):
-            newClustID+=1
-            CandidateGene.extend(subCandidateGene)
-            hashProjectID[str(clusterID[i])]=str(newClustID)
-    newCluster=[]
-    for i in range(len(funcClust)):
-        if (funcClust[i] in hashProjectID.keys()):
-            newCluster.append(hashProjectID[funcClust[i]])
-        else:
-            newCluster.append(str(0))
-    setCandidateGene=list(set(CandidateGene))
-    return(newCluster,setCandidateGene)
-def loessRegression(funcGeneGini,funcLogGeneMax,funcGene,funcGiniCutoff):
+def loessRegression(funcGeneGini,funcLogGeneMax,funcGene,funcGiniCutoff,funcPvalue):
     dictGini={}
     for i in range(len(funcGene)):
         dictGini[funcGene[i]]=funcGeneGini[i]
@@ -115,7 +81,6 @@ def loessRegression(funcGeneGini,funcLogGeneMax,funcGene,funcGiniCutoff):
     residueSort=sorted(posRes)
     quarter=int(len(residueSort)*3/4)
     cutoff=residueSort[quarter]
-
     quantileGini=[]
     quantileLogMax=[]
     quantileGene=[]
@@ -131,7 +96,6 @@ def loessRegression(funcGeneGini,funcLogGeneMax,funcGene,funcGiniCutoff):
             outlierGini.append(funcGeneGini[i])
             outlierGene.append(funcGene[i])
             outlierLogMax.append(funcLogGeneMax[i])
-
     fit2=sm.nonparametric.lowess(np.array(quantileGini),np.array(quantileLogMax),frac=0.9)
     reFit=interp1d(list(zip(*fit2))[0],list(zip(*fit2))[1], bounds_error=False)
     quantileGiniReFitPredict = reFit(np.array(quantileLogMax))
@@ -142,38 +106,74 @@ def loessRegression(funcGeneGini,funcLogGeneMax,funcGene,funcGiniCutoff):
     sortQuantileLogMax=sorted(uniqQuantileLogMax,reverse=True)
     k=(dictFunction[sortQuantileLogMax[1]]-dictFunction[sortQuantileLogMax[2]])/(sortQuantileLogMax[1]-sortQuantileLogMax[2])
     b=dictFunction[sortQuantileLogMax[1]]-k*sortQuantileLogMax[1]
-
     outlierGiniReFitPredict = reFit(outlierLogMax)
     ###remove value NaN###
     for i in range(0,len(outlierGiniReFitPredict)):
         if math.isnan(outlierGiniReFitPredict[i]):
             outlierGiniReFitPredict[i]=outlierLogMax[i]*k+b
-
     reFitResidueQuantile=quantileGini-quantileGiniReFitPredict
     reFitResidueOutlier=outlierGini-outlierGiniReFitPredict
     reFitResidue=np.array(list(reFitResidueQuantile)+list(reFitResidueOutlier))
-
     newGene=quantileGene+outlierGene
     newGini=np.array(list(quantileGini)+list(outlierGini))
     newFitGini=np.array(list(quantileGiniReFitPredict)+list(outlierGiniReFitPredict))
     newLogMax=quantileLogMax+outlierLogMax
     newResidualGini=newGini-newFitGini
-
     pvalue=stats.norm.cdf(-abs(preprocessing.scale(newResidualGini)))
     funcSigGiniGeneGini={}
     funcSigGiniGenePvalue={}
     for i in range(0,len(pvalue)):
-        if (float(pvalue[i])<0.0001 and dictGini[newGene[i]]>=funcGiniCutoff):
+        if (float(pvalue[i])<funcPvalue and dictGini[newGene[i]]>=funcGiniCutoff):
             funcSigGiniGeneGini[newGene[i]]=dictGini[newGene[i]]
             funcSigGiniGenePvalue[newGene[i]]=pvalue[i]
     return(funcSigGiniGeneGini,funcSigGiniGenePvalue)
 
+def giniValueSelectionM(funcGeneGini,funcGene,funcGiniCutoff):
+    funcSigGiniGeneGini={}
+    for i in range(0,len(funcGene)):
+        if (float(funcGeneGini[i])>=funcGiniCutoff):
+            funcSigGiniGeneGini[funcGene[i]]=funcGeneGini[i]
+    return(funcSigGiniGeneGini)
+
 def calGini(adataSC,**kwargs):
-    ginicutoff=kwargs.get('ginicutoff', 0.6)
+    """
+    Calculate Gini Index value for each gene.
+    Params
+    ------
+    adata: Anndata
+        The annotated data matrix of shape `n_obs` × `n_vars`.
+        Rows correspond to cells and columns to genes.
+    selection: string, optional (Default: 'p_value')
+        selection='p_value' or selection='gini_value'. 'p_value' mode indicates
+        Gini genes are selected by p value of Loess regression. 'gini_value' mode
+        indicates Gini genes are selected by Gini Index value. Recommend 'p_value' 
+        mode.
+    p_value: float, optional (Default=0.0001)
+        If `selection='p_value'`, assign a p value cutoff for Gini gene selection.
+    min_gini_value: float, optional (Default=0.6)
+        Assign min Gini Index value cutoff in Gini gene selection. The Gini
+        Index value is range from 0 to 1. Thus the min_gini_value cutoff is 
+        better in range from 0 to 0.8. Larger value indicates a more stringent
+        in select Gini genes, smaller values indicates more Gini genes are 
+        selected
+
+    A. Gini gene selection in 'p_value' mode: 1. p value < p_value 2. Gini Index
+    value >= min_gini_value. (Recommended)
+    B. In 'gini_value' mode: Gini Index value > min_gini_value.
+
+    Returns
+    -------
+    Returns dictionary with Gini genes. adata.var['gini']
+    """
+
+    ginicutoff=kwargs.get('min_gini_value', 0.6)
+    p_value=kwargs.get('p_value', 0.0001)
+    selection=kwargs.get('selection', 'p_value')
     geneLabel=adataSC.var.index.tolist()
     cellLabel=adataSC.obs.index.tolist()
     print("Gene number is "+str(len(geneLabel)))
     print("Cell number is "+str(len(cellLabel)))
+
     ###calculate gini index###
     geneGini,geneMax=giniIndex(adataSC.X.T)
     allGini=np.array(list(zip(geneLabel,geneGini)))
@@ -181,30 +181,59 @@ def calGini(adataSC,**kwargs):
     geneGini=np.array(geneGini)
     geneMax=np.array(geneMax)
     logGeneMax=np.array(logGeneMax)
-    sigGiniGene,sigGiniPvalue=loessRegression(geneGini,logGeneMax,geneLabel,ginicutoff)
-    sigGiniListK=sigGiniPvalue.keys()
-    sigGiniListV=sigGiniPvalue.values()
-    sigGiniList=np.array([list(a) for a in zip(sigGiniListK,sigGiniListV)])
+    sigGiniGene={}
+    if (selection=='p_value'):
+        sigGiniGene,sigGiniPvalue=loessRegression(geneGini,logGeneMax,geneLabel,ginicutoff,p_value)
+    elif (selection=='gini_value'):
+         sigGiniGene=giniValueSelectionM(geneGini,geneLabel,ginicutoff)
+    else:
+        raise SystemExit("Only p_value or gini_value mode is allowed in this step.")
     if (len(sigGiniGene)<2):
-        raise SystemExit(str(len(sigGiniGene))+" giniGene found, set a lower value of --giniCutoff.")
-    ###select and save high-Gini gene List###
+        raise SystemExit("Only "+str(len(sigGiniGene))+" Gini gene passed the cutoff, set a lower value of --min_gini_value.")
+
+    ###Select and save high Gini genes to Anndata###
     geneGiniBool=[]
     for i in range(len(geneLabel)):
         value=0
         if geneLabel[i] in sigGiniGene.keys():
             value=1
         geneGiniBool.append(value)
-    
     adataSC.var['gini']=np.array(geneGiniBool,dtype=bool)
 
 def clusterGini(adataSC,**kwargs):
+    """
+    Cluster cell based on Gini Index value.
+    Params
+    ------
+    adata: Anndata
+        The annotated data matrix of shape `n_obs` × `n_vars`.
+        Rows correspond to cells and columns to genes.
+    neighbors: int, optional (Default=5)
+        The size of local neighborhood used for manifold approximation. Larger
+        values result in more global views of the manifold, while smaller values
+        result in more local data being preserved. For rare cell identification
+        this values should be in the range 2 to 15. Recommended neighbors = 5.
+    resolution: float, optional (Default=0.1)
+        A parameter value controlling the coarseness of the clustering. Higher 
+        values lead to more clusters.
+    method: string, optional (Default: 'leiden')
+        method='louvain' or method='leiden'.
+
+    Returns
+    -------
+    Returns dictionary with gini cluster result. adata.var['rare']
+    """
+    
     cluster_neighbors=kwargs.get('neighbors', 5)
     cluster_resolution=kwargs.get('resolution', 0.1)
     cluster_method=kwargs.get('method', "leiden")
+    if (cluster_method!="louvain" and cluster_method!="leiden"):
+        raise SystemExit("Only leiden or louvain cluster method is allowed in this step.")
     adataGini=adataSC[:,adataSC.var['gini']]
     scaleMatrix=arctanTransform((adataGini.X))
     adataScaleGini=anndata.AnnData(X=scaleMatrix)
-#    adataGini.X=arctanTransform((adataGini.X))
+
+    ###calculate neighbor and clustering###
     sc.pp.neighbors(adataScaleGini,use_rep='X',n_neighbors=cluster_neighbors)
     giniClust=[]
     if (cluster_method=="louvain"):

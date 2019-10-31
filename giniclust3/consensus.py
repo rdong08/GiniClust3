@@ -15,7 +15,7 @@ from sklearn.cluster import KMeans
 def calMPG(funcGiniClust,funcMinpts):
     funcGiniDict={}
     for i in range(0,len(funcGiniClust)):
-        funcGiniDict[funcGiniClust[i]]=funcGiniDict.get(funcGiniClust[i],0) + 1
+        funcGiniDict[funcGiniClust[i]]=funcGiniDict.get(funcGiniClust[i],0)+1
     s=0.49*(funcMinpts/len(funcGiniClust))
     m=(funcMinpts/len(funcGiniClust))*4
     funcRare=[]
@@ -80,6 +80,23 @@ def overlapGF(gini,fano,giniList):
     return(giniList)
 
 def generateMtilde(GCconsensus):
+    """
+    Generate Mtilde matrix based on Gini and Fano cluster results
+    Params
+    ------
+    GCdict
+        GC dict for Gini and Fano cluster results
+
+    Returns
+    -------
+    Returns dictionary with consensus matrix Mtilde and associated information.
+    GCconsensus['Mtilde']=simMtilde
+    GCconsensus['overlap']=overlapGiniClust
+    GCconsensus['giniCellDict']=giniCellDict
+    GCconsensus['fanoCellDict']=fanoCellDict
+    GCconsensus['giniIndex']=giniIndex
+    GCconsensus['fanoIndex']=fanoIndex
+    """
     giniCluster=GCconsensus['giniCluster']
     fanoCluster=GCconsensus['fanoCluster']
     count=1
@@ -88,13 +105,11 @@ def generateMtilde(GCconsensus):
         giniCellDict[giniCluster[i]].append(count)
         count+=1
     giniCluster=np.array(giniCluster,dtype=int)
-    
     count=1
     fanoCellDict = defaultdict(list)
     for i in range(len(fanoCluster)):
         fanoCellDict[fanoCluster[i]].append(count)
         count+=1
-
     overlapGiniClust=overlapGF(giniCellDict,fanoCellDict,giniCluster)
     minpts=len(overlapGiniClust)/500
     giniClustDict=calMPG(overlapGiniClust,minpts)
@@ -107,7 +122,6 @@ def generateMtilde(GCconsensus):
             giniIndex.append(overlapGiniClust[i])
             fanoIndex.append(fanoCluster[i])
             hashUni[key]=1
-    
     giniIndex=np.array(giniIndex)
     fanoIndex=np.array(fanoIndex)
     normGiniIndex=[]
@@ -123,13 +137,28 @@ def generateMtilde(GCconsensus):
     GCconsensus['giniIndex']=giniIndex
     GCconsensus['fanoIndex']=fanoIndex
 
-def clusterMtilde(GCconsensus):
-    K=determinK(GCconsensus['giniCellDict'],GCconsensus['fanoCellDict'])
+def clusterMtilde(GCconsensus,**kwargs):
+    """
+    Cluster consensus Mtilde matrix based on Gini and Fano cluster results.
+    Params
+    ------
+    GCDict
+        GCDict returned from generateMtilde
+    k: int, optional 
+        Number of K in KMeans clustering. Default value based on Gini and Fano
+        cluster results.
+
+    Returns
+    -------
+    Returns dictionary with KMeans cluster result. GCDict['finalCluster']
+    """
+    k_auto=determinK(GCconsensus['giniCellDict'],GCconsensus['fanoCellDict'])
+    K=kwargs.get('k',k_auto)
     kmeans = KMeans(n_clusters=K,n_init=100).fit(GCconsensus['Mtilde'])
     finalClustIndex=kmeans.labels_
     GCconsensus['finalIndex']=np.array(finalClustIndex)
 
-def projectFinalCluster(GCconsensus):
+    ###project to each single cell###
     hashProject={}
     for i in range(len(GCconsensus['finalIndex'])):
         key=str(GCconsensus['giniIndex'][i])+"_"+str(GCconsensus['fanoIndex'][i])
@@ -138,6 +167,7 @@ def projectFinalCluster(GCconsensus):
     for i in range(len(GCconsensus['overlap'])):
         key=str(GCconsensus['overlap'][i])+"_"+str(GCconsensus['fanoCluster'][i])
         finalClust.append(str(hashProject[key]))
+
     ######sort and remark clusters######
     remarkClust=[]
     hashFinalCount={}
