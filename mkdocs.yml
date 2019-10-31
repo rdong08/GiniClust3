@@ -1,0 +1,21 @@
+site_name: GiniClust3
+repo_url: https://github.com/rdong08/GiniClust3
+site_description: Documents for GiniClust3
+site_author: Rui Dong
+pages:
+    - Home: 'index.md'
+    - Tutorial: 'tutorials.rst'
+    - Functions:
+        - 'calGini': 'func/calGini.rst'
+        - 'clusterGini': 'func/clusterGini.rst'
+        - 'calFano': 'func/calFano.rst'
+        - 'clusterFano': 'func/clusterFano.rst'
+        - 'generateMtilde': 'func/generateMtilde.rst'
+        - 'clusterMtilde': 'func/clusterMtilde.rst'
+        - 'plotGini': 'func/plotGini.rst'
+        - 'plotFano': 'func/plotFano.rst'
+    - About:
+        - 'Release Notes': 'about/changelog.rst'
+        - 'License': 'about/license.rst'
+theme: 'readthedocs'
+

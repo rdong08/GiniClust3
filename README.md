@@ -74,15 +74,14 @@ consensusCluster['giniCluster']=np.array(adataSC.obs['rare'].values.tolist())
 consensusCluster['fanoCluster']=np.array(adataSC.obs['fano'].values.tolist())
 gc.consensus.generateMtilde(consensusCluster) ###Generate consensus matrix
 gc.consensus.clusterMtilde(consensusCluster) ###Cluster consensus matrix
-gc.consensus.projectFinalCluster(consensusCluster) ###Projection to each cell
 np.savetxt("final.txt",consensusCluster['finalCluster'], delimiter="\t",fmt='%s')
 ```
 UMAP visualization
 ```bash
 adataGini.obs['final']=consensusCluster['finalCluster']
 adataFano.obs['final']=consensusCluster['finalCluster']
-gc.plot.umapGini(adataGini)
-gc.plot.umapFano(adataFano)
+gc.plot.plotGini(adataGini)
+gc.plot.plotFano(adataFano)
 ```
 
 Citation

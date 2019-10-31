@@ -8,7 +8,7 @@
 
 import scanpy as sc
 
-def umapGini(adataGini,**kwargs):
+def plotGini(adataGini,**kwargs):
     """
     Umap visualization of rare clusters.
     Params
@@ -34,7 +34,7 @@ def umapGini(adataGini,**kwargs):
      else:
         raise SystemExit("'method' should be 'umap' or 'tsne'.")   
 
-def umapFano(adataFano,**kwargs):
+def plotFano(adataFano,**kwargs):
     """
     Umap visualization of rare clusters.
     Params
