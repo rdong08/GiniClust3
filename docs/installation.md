@@ -1,6 +1,6 @@
 # Installation
 
-## Prerequisites
+### Prerequisites
 * numpy (https://numpy.org/)
 * scikit-learn (https://scikit-learn.org/stable/)
 * scipy (https://www.scipy.org/)
@@ -9,14 +9,15 @@
 Scanpy is needed to be installed first from "https://scanpy.readthedocs.io/en/stable/installation.html".
 
 ### Install by using anaconda (recommend)
-```bash
-conda install -c rdong giniclust3
-```
+
+    conda install -c rdong giniclust3
+
 ### OR download from Github and install
-```bash
-python setup.py install
-```
+
+    git clone https://github.com/rdong08/GiniClust3.git
+    cd GiniClust3
+    python setup.py install
+
 ### OR install GiniClust3 from PyPI (consider using pip3 for python 3):
-```bash
-pip install giniclust3
-```
+
+    pip install giniclust3

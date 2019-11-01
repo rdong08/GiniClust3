@@ -4,6 +4,7 @@ site_description: Documents for GiniClust3
 site_author: Rui Dong
 pages:
     - Home: 'index.md'
+    - Install: 'installation.md'
     - Tutorial: 'tutorials.md'
     - Functions:
         - 'calGini': 'func/calGini.md'
