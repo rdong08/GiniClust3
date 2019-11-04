@@ -1,33 +1,33 @@
 #Usage and example:
 
 -----
-##Prepare the single cell data matrix
+##Workflow of pre-processing:
 
-Import packages
+Import packages:
 
     import scanpy as sc
     import numpy as np
     import giniclust3 as gc
     import anndata
 
-Read single cell file
+Import single cell count matrix from csv file:
 
-    adataRaw=sc.read_csv("./data/GSM1599495_ES_d0_biorep_techrep1.csv",first_column_names=True)
+    adataRaw=sc.read_csv("giniclust3/data/GSM1599495_ES_d0_biorep_techrep1.csv",first_column_names=True)
 
-Filter expression matrix
+Filter gene expression matrix:
 
     sc.pp.filter_cells(adataRaw,min_genes=3)
     sc.pp.filter_genes(adataRaw,min_cells=200)
 
-Transform expression matrix (Skip this step if the input matrix is: col for genes and row for cells)
+Transform expression matrix (skip this step if the input matrix is: col for genes and row for cells):
 
     adataSC=anndata.AnnData(X=adataRaw.X.T,obs=adataRaw.var,var=adataRaw.obs)
 
-Normalization
+Gene expression normalization:
 
     sc.pp.normalize_per_cell(adataSC, counts_per_cell_after=1e4)
 
-##Apply GiniClust3 for both common and rare cluster identification
+##Apply GiniClust3 for both common and rare cluster identification:
 
 
 Perform GiniIndexClust:
