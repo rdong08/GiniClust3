@@ -1,12 +1,13 @@
 # Installation
 
 ### Prerequisites
-* numpy (https://numpy.org/)
-* scikit-learn (https://scikit-learn.org/stable/)
-* scipy (https://www.scipy.org/)
-* statsmodels (https://www.statsmodels.org/stable/index.html)
-* scanpy (https://scanpy.readthedocs.io/en/stable/) 
-Scanpy is needed to be installed first from "https://scanpy.readthedocs.io/en/stable/installation.html".
+* numpy (<https://numpy.org/>)
+* scikit-learn (<https://scikit-learn.org/stable/>)
+* scipy (<https://www.scipy.org/>)
+* statsmodels (<https://www.statsmodels.org/stable/index.html>)
+* scanpy (<https://scanpy.readthedocs.io/en/stable/>) 
+
+Scanpy is needed to be installed from <https://scanpy.readthedocs.io/en/stable/installation.html>.
 
 ### Install by using anaconda (recommend)
 
