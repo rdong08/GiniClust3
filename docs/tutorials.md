@@ -59,4 +59,4 @@ UMAP visualization:
 
 UMAP visualization of the figures
 
-<img src="./images/results.png" width="800"/>
+<img src="../images/results.png" width="800"/>
