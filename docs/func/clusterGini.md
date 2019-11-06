@@ -1,4 +1,4 @@
-gc.gini.clusterGini:
+gc.gini.clusterGini
 ==================
 Cluster cell based on Gini Index value.
 

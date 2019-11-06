@@ -1,4 +1,4 @@
-gc.gini.calGini：
+gc.gini.calGini
 ===============
 Calculate Gini Index value for each gene and then select highly variable genes.
 

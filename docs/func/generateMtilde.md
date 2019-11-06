@@ -1,4 +1,4 @@
-gc.consensus.generateMtilde：
+gc.consensus.generateMtilde
 ===============
 
 Generate Mtilde matrix based on Gini and Fano cluster results
@@ -7,7 +7,7 @@ Generate Mtilde matrix based on Gini and Fano cluster results
 
 **Parameters** 
 
-    GCdict
+    GCdict: dict
         Dictionary with Gini and Fano cluster results
 
 **Returns**

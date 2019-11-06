@@ -1,4 +1,4 @@
-gc.fano.calFano：
+gc.fano.calFano
 ===============
 
 Highly variable gene selection by calculate Fano factor for each gene.

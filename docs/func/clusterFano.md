@@ -1,4 +1,4 @@
-gc.fano.clusterFano:
+gc.fano.clusterFano
 ==================
 Cluster cell based on selected highly variable genes.
     adataFano=gc.fano.clusterFano(adataSC,neighbors=15,resolution=0.1)

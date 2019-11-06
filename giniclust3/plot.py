@@ -31,7 +31,7 @@ def plotGini(adataGini,**kwargs):
     elif(method=='tsne'):
         sc.tl.tsne(adataGini)
         sc.pl.tsne(adataGini,color='final',save="_finalCluster_tsne_gini.pdf")
-     else:
+    else:
         raise SystemExit("'method' should be 'umap' or 'tsne'.")   
 
 def plotFano(adataFano,**kwargs):

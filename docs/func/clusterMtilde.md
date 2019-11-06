@@ -1,4 +1,4 @@
-gc.consensus.clusterMtilde：
+gc.consensus.clusterMtilde
 ===============
 
 Cluster generated consensus matrix 
@@ -7,7 +7,7 @@ Cluster generated consensus matrix
 
 **Parameters**
 
-    GCdict
+    GCdict: dict
         Dictionary with Gini, Fano cluster results and consensus matrix.
     k: int, optional
         Number of K in KMeans clustering. Default value based on Gini and Fano cluster results.

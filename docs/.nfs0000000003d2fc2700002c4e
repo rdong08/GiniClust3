@@ -7,7 +7,3 @@ GiniClust is a clustering method specifically designed for rare cell type detect
 
 ###Citation
 Dong R, Yuan GC. GiniClust3: a fast and memory-efficient tool for rare cell type identification[J]. bioRxiv, 2019: 788554.
-
-Tsoucas D, Yuan G C. GiniClust2: a cluster-aware, weighted ensemble clustering method for cell-type detection[J]. Genome biology, 2018, 19(1): 58.
-
-Jiang L, Chen H, Pinello L, et al. GiniClust: detecting rare cell types from single-cell gene expression data with Gini index[J]. Genome biology, 2016, 17(1): 144.

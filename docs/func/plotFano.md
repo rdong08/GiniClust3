@@ -1,4 +1,4 @@
-gc.plot.plotFano：
+gc.plot.plotFano
 ===============
 
 Umap or TSNE visualization based on highly variable genes.

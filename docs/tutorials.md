@@ -56,3 +56,7 @@ UMAP visualization:
     adataFano.obs['final']=consensusCluster['finalCluster']
     gc.plot.plotGini(adataGini)
     gc.plot.plotFano(adataFano)
+
+UMAP visualization of the figures
+
+<img src="images/results.png" width="800"/>

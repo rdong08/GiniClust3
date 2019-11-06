@@ -1,4 +1,4 @@
-gc.plot.plotGini：
+gc.plot.plotGini
 ===============
 
 Umap or TSNE visualization based on Gini genes.
