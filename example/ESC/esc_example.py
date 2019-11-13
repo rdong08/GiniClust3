@@ -31,7 +31,6 @@ consensusCluster['giniCluster']=np.array(adataSC.obs['rare'].values.tolist())
 consensusCluster['fanoCluster']=np.array(adataSC.obs['fano'].values.tolist())
 gc.consensus.generateMtilde(consensusCluster)
 gc.consensus.clusterMtilde(consensusCluster)
-gc.consensus.projectFinalCluster(consensusCluster)
 np.savetxt("final.txt",consensusCluster['finalCluster'], delimiter="\t",fmt='%s')
 
 ####UMAP visualization####
