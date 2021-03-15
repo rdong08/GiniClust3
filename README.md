@@ -5,10 +5,9 @@ GiniClust is a clustering method specifically designed for rare cell type detect
 GiniClust3 documentation is available through https://giniclust3.readthedocs.io/en/latest/, including installation instructions and tutorial.
 
 If you use GiniClust v1.0-v3.0, please consider cite one or more of the following papers:
-
-Jiang L, Chen H, Pinello L, Yuan GC. GiniClust: detecting rare cell types from single-cell gene expression data with Gini index. Genome Biol. 2016 Jul 1;17(1):144. PMCID:PMC4930624
-Tsoucas D, Yuan GC. GiniClust2: a cluster-aware, weighted ensemble clustering method for cell-type detection. Genome Biol. 2018 May 10;19(1):58. PMCID:PMC5946416
-Dong R, Yuan GC. GiniClust3: a fast and memory-efficient tool for rare cell type identification. BMC Bioinformatics. 2020 Apr 25;21(1):158. PMCID:PMC7183612
+- Jiang L, Chen H, Pinello L, Yuan GC. GiniClust: detecting rare cell types from single-cell gene expression data with Gini index. Genome Biol. 2016 Jul 1;17(1):144. PMCID:PMC4930624
+- Tsoucas D, Yuan GC. GiniClust2: a cluster-aware, weighted ensemble clustering method for cell-type detection. Genome Biol. 2018 May 10;19(1):58. PMCID:PMC5946416
+- Dong R, Yuan GC. GiniClust3: a fast and memory-efficient tool for rare cell type identification. BMC Bioinformatics. 2020 Apr 25;21(1):158. PMCID:PMC7183612
 
 
 A schematic overview of the GiniClust3 pipeline
