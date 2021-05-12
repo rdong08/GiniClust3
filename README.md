@@ -95,7 +95,7 @@ gc.plot.plotFano(adataFano)
 Citation
 --------
 
-**NA**
+Dong R, Yuan GC. GiniClust3: a fast and memory-efficient tool for rare cell type identification. BMC Bioinformatics. 2020 Apr 25;21(1):158. PMCID:PMC7183612
 
 License
 -------
