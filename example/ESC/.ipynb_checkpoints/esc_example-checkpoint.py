@@ -36,8 +36,6 @@ np.savetxt("final.txt",consensusCluster['finalCluster'], delimiter="\t",fmt='%s'
 ####UMAP visualization####
 adataGini.obs['final']=consensusCluster['finalCluster']
 adataFano.obs['final']=consensusCluster['finalCluster']
-#gc.plot.umapGini(adataGini)
-#gc.plot.umapFano(adataFano)
-gc.plot.plotGini(adataGini)
-gc.plot.plotFano(adataFano)
+gc.plot.umapGini(adataGini)
+gc.plot.umapFano(adataFano)
 
